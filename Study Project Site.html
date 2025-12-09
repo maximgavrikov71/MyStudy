@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инвест-презентация: Smart Start Academy Екатеринбург</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- REQUIRED PLACEHOLDERS -->
+    <!-- Chosen Palette: "Energetic & Playful" (Adapted for Business Trust) - Using a vibrant Teal (#0d9488) as the primary action color to signify growth and safety, balanced with a deep Navy (#1e293b) for professional reliability, and energetic accents of Coral (#f43f5e) and Amber (#f59e0b) to represent the dynamic nature of child development. This palette is chosen to be modern, engaging, yet trustworthy for investors. -->
+    
+    <!-- Application Structure Plan:
+         1. Hero Section: "The Opportunity Gap" - Immediate hook using the critical deficit number (1200 spots).
+         2. Market Dynamics: "Why Now?" - Data visualization of market growth and stability (Line Chart).
+         3. Location Strategy: "Why Academichesky?" - Comparative bar chart showing the massive deficit gap vs other districts.
+         4. The Solution: "Smart Start Academy" - Interactive concept explorer (Montessori/Reggio/English) to demystify the product.
+         5. Business Model: "Lean Canvas Grid" - Interactive grid allowing deep dives into business logic (Revenue, Costs, Channels).
+         6. Financials: "Sustainability" - Visualizing the cost structure and revenue streams.
+         This flow moves from the "Macro Opportunity" -> "Specific Location" -> "Product Solution" -> "Business Viability".
+    -->
+
+    <!-- Visualization & Content Choices:
+         1. Market Growth (Line Chart): Chosen to show the 6% steady annual growth, proving market resilience.
+         2. Deficit Comparison (Bar Chart): Chosen to dramatically visualize the 1200-spot gap in Academichesky compared to other districts (350/150).
+         3. Concept Explorer (Interactive Tabs): Used to break down complex pedagogical terms (Montessori, Reggio) into digestible bites without text walls.
+         4. Lean Canvas (Interactive Grid): Transforms a static document into an explorable dashboard, preventing information overload.
+         5. Cost Structure (Doughnut Chart): Standard breakdown for financial transparency.
+         NO SVG. NO Mermaid. All charts via Chart.js/Canvas.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            color: #1e293b; /* Slate 800 */
+        }
+        
+        /* Chart Container Styling Rules */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%; /* Flexible within grid */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Card Hover Effects */
+        .interactive-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+        }
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left-color: #0d9488; /* Teal 600 */
+        }
+
+        /* Tab Transitions */
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            background-color: #0d9488;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.4);
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #e2e8f0;
+        }
+
+        /* Background Pattern (CSS only, no SVG) */
+        .bg-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo area -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="h-10 w-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-teal-500/30">S</div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg leading-tight text-slate-800">Smart Start</span>
+                        <span class="text-xs font-semibold text-teal-600 tracking-wider uppercase">Academy</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('opportunity')" class="text-slate-600 hover:text-teal-600 font-medium text-sm uppercase tracking-wide transition">Рынок</button>
+                    <button onclick="scrollToSection('location')" class="text-slate-600 hover:text-teal-600 font-medium text-sm uppercase tracking-wide transition">Локация</button>
+                    <button onclick="scrollToSection('concept')" class="text-slate-600 hover:text-teal-600 font-medium text-sm uppercase tracking-wide transition">Концепция</button>
+                    <button onclick="scrollToSection('business')" class="text-slate-600 hover:text-teal-600 font-medium text-sm uppercase tracking-wide transition">Бизнес-Модель</button>
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden md:flex">
+                    <button onclick="scrollToSection('financials')" class="bg-slate-900 text-white px-5 py-2 rounded-lg font-medium hover:bg-slate-800 transition shadow-lg shadow-slate-900/20">
+                        Финансы
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 p-2 rounded-md hover:bg-slate-100">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 absolute w-full">
+            <div class="px-4 pt-2 pb-4 space-y-1 shadow-lg">
+                <button onclick="scrollToSection('opportunity')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Рынок</button>
+                <button onclick="scrollToSection('location')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Локация</button>
+                <button onclick="scrollToSection('concept')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Концепция</button>
+                <button onclick="scrollToSection('business')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Бизнес-Модель</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-white overflow-hidden pt-16 pb-24 lg:pt-32 lg:pb-40">
+        <div class="bg-pattern absolute inset-0 opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-xs font-bold uppercase tracking-wider mb-6">
+                        Инвестиционное предложение 2025
+                    </div>
+                    <h1 class="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+                        <span class="block">Частный детский сад</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-400">в районе Академический</span>
+                    </h1>
+                    <p class="mt-4 text-lg text-slate-600 sm:mt-6">
+                        Решение острой социальной проблемы дефицита мест через создание современного образовательного центра с высокой маржинальностью и устойчивым спросом.
+                    </p>
+                    <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
+                        <button onclick="scrollToSection('location')" class="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-bold text-lg shadow-xl shadow-teal-600/30 hover:bg-teal-700 transition transform hover:-translate-y-1">
+                            Почему этот район?
+                        </button>
+                        <button onclick="scrollToSection('business')" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-bold text-lg hover:bg-slate-50 hover:border-slate-300 transition">
+                            Бизнес-план
+                        </button>
+                    </div>
+                </div>
+                <!-- Abstract Visual representing the "Gap" -->
+                <div class="mt-12 lg:mt-0 lg:col-span-6 relative">
+                    <div class="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-teal-100 rounded-bl-full opacity-50"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-amber-100 rounded-tr-full opacity-50"></div>
+                        
+                        <div class="text-center">
+                            <h3 class="text-slate-500 font-medium uppercase tracking-widest text-sm mb-2">Ключевой показатель</h3>
+                            <div class="text-8xl font-black text-slate-900 mb-2 tracking-tighter">1200</div>
+                            <div class="text-xl font-bold text-red-500 bg-red-50 inline-block px-4 py-1 rounded-full mb-6">Дефицит мест</div>
+                            <p class="text-slate-600 leading-relaxed">
+                                В Академическом районе критическая нехватка муниципальных мест. Это самый высокий показатель по Екатеринбургу, гарантирующий <strong class="text-teal-700">100% заполняемость</strong> на старте.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: Market Opportunity -->
+    <section id="opportunity" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-teal-600 font-bold tracking-wide uppercase text-sm mb-2">Обзор Рынка</h2>
+                <p class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+                    Устойчивый рост вопреки кризисам
+                </p>
+                <p class="mt-4 text-xl text-slate-500">
+                    Рынок частного образования показывает стабильную динамику. Родители экономят на всем, кроме будущего своих детей.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Chart Area -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold text-slate-800">Динамика рынка (Млрд ₽)</h3>
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">+6% ежегодно</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 text-center">Источник: Аналитическое агентство SDA (Прогноз до 2029)</p>
+                </div>
+
+                <!-- Key Metrics Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Metric 1 -->
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:border-teal-200 transition">
+                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center text-2xl mb-4">📈</div>
+                        <div class="text-3xl font-bold text-slate-900 mb-1">92.3 Млрд₽</div>
+                        <div class="text-sm text-slate-500 font-medium">Прогноз объема рынка к 2029 году</div>
+                    </div>
+                    <!-- Metric 2 -->
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:border-teal-200 transition">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl mb-4">🏙️</div>
+                        <div class="text-3xl font-bold text-slate-900 mb-1">1/3 Рынка</div>
+                        <div class="text-sm text-slate-500 font-medium">Доля частных садов в Екб</div>
+                    </div>
+                    <!-- Metric 3 -->
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:border-teal-200 transition">
+                        <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center text-2xl mb-4">💎</div>
+                        <div class="text-3xl font-bold text-slate-900 mb-1">50 000 ₽</div>
+                        <div class="text-sm text-slate-500 font-medium">Верхняя планка среднего чека</div>
+                    </div>
+                    <!-- Metric 4 -->
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:border-teal-200 transition">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-2xl mb-4">🇬🇧</div>
+                        <div class="text-3xl font-bold text-slate-900 mb-1">Билингвальность</div>
+                        <div class="text-sm text-slate-500 font-medium">Ключевой драйвер выбора</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Location Strategy -->
+    <section id="location" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-teal-600 rounded-full opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-600 rounded-full opacity-20 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div>
+                    <h2 class="text-teal-400 font-bold tracking-wide uppercase text-sm mb-2">Локация</h2>
+                    <h3 class="text-3xl font-extrabold text-white sm:text-4xl mb-6">
+                        Академический: Эпицентр спроса
+                    </h3>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                        Выбор локации основан на сухих цифрах. Академический — самый молодой и быстрорастущий район, где инфраструктура не успевает за рождаемостью.
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 font-bold">1</div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Самое молодое население</h4>
+                                <p class="text-slate-400">Средний возраст жителя — 32 года. Это наши целевые клиенты: молодые семьи.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 font-bold">2</div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Высокая рождаемость</h4>
+                                <p class="text-slate-400">~1800 детей рождается ежегодно. Доля детей до 18 лет — 31% (в 1.5 раза выше нормы).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 font-bold">3</div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Платежеспособность</h4>
+                                <p class="text-slate-400">Высокая концентрация специалистов и предпринимателей с доходом выше среднего.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Deficit Chart -->
+                <div class="mt-12 lg:mt-0 bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-2xl">
+                    <h4 class="text-white font-bold mb-2">Сравнительный дефицит мест</h4>
+                    <p class="text-slate-400 text-sm mb-6">Данные Департамента образования (Ноябрь 2025)</p>
+                    <div class="chart-container">
+                        <canvas id="deficitChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: The Concept -->
+    <section id="concept" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-teal-600 font-bold tracking-wide uppercase text-sm mb-2">Продукт</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+                    Smart Start Academy
+                </h3>
+                <p class="mt-4 text-xl text-slate-500 max-w-2xl mx-auto">
+                    Гибридная методика, объединяющая лучшие мировые практики с билингвальной средой. Мы не просто "садик", мы — старт в успешное будущее.
+                </p>
+            </div>
+
+            <!-- Interactive Concept Explorer -->
+            <div class="bg-slate-50 rounded-3xl p-2 border border-slate-200 max-w-4xl mx-auto">
+                <!-- Tabs -->
+                <div class="flex flex-wrap sm:flex-nowrap gap-2 mb-2 bg-white rounded-2xl p-1 shadow-sm">
+                    <button onclick="switchTab('montessori')" id="tab-montessori" class="tab-btn active w-full py-3 rounded-xl font-bold text-sm sm:text-base">Монтессори</button>
+                    <button onclick="switchTab('reggio')" id="tab-reggio" class="tab-btn w-full py-3 rounded-xl font-bold text-sm sm:text-base text-slate-600">Реджио-Эмилия</button>
+                    <button onclick="switchTab('waldorf')" id="tab-waldorf" class="tab-btn w-full py-3 rounded-xl font-bold text-sm sm:text-base text-slate-600">Вальдорф</button>
+                    <button onclick="switchTab('english')" id="tab-english" class="tab-btn w-full py-3 rounded-xl font-bold text-sm sm:text-base text-slate-600">English</button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="bg-white rounded-2xl p-8 sm:p-12 min-h-[320px] flex items-center relative overflow-hidden transition-all">
+                    <!-- Dynamic Content will be injected here -->
+                    <div id="tab-content" class="w-full">
+                        <!-- Initial Content: Montessori -->
+                        <div class="lg:grid lg:grid-cols-3 lg:gap-8 items-center animate-fade-in">
+                            <div class="col-span-1 flex justify-center mb-6 lg:mb-0">
+                                <div class="w-32 h-32 bg-teal-100 rounded-full flex items-center justify-center text-6xl shadow-inner">
+                                    🧩
+                                </div>
+                            </div>
+                            <div class="col-span-2">
+                                <h4 class="text-2xl font-bold text-slate-900 mb-3">Самостоятельность</h4>
+                                <p class="text-slate-600 text-lg mb-4">
+                                    Принцип «Помоги мне сделать это самому». Специально подготовленная среда зонируется на реальную жизнь, сенсорику, математику и язык.
+                                </p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center text-slate-700 font-medium"><span class="text-teal-500 mr-2">✓</span> Разновозрастные группы</li>
+                                    <li class="flex items-center text-slate-700 font-medium"><span class="text-teal-500 mr-2">✓</span> Индивидуальный темп обучения</li>
+                                    <li class="flex items-center text-slate-700 font-medium"><span class="text-teal-500 mr-2">✓</span> Развитие дисциплины через свободу</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Business Model (Lean Canvas) -->
+    <section id="business" class="py-20 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <h2 class="text-teal-600 font-bold tracking-wide uppercase text-sm mb-2">Бизнес-Модель</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+                    Lean Canvas
+                </h3>
+                <p class="mt-4 text-slate-500">
+                    Интерактивная структура бизнеса. Нажмите на любой блок, чтобы раскрыть детали.
+                </p>
+            </div>
+
+            <!-- CSS Grid for Lean Canvas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                
+                <!-- Problem -->
+                <div onclick="openModal('problem')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Проблема</h4>
+                        <div class="bg-red-100 p-2 rounded-lg text-xl">⚠️</div>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li>• Острая нехватка мест (1200+)</li>
+                        <li>• Группы по 60 детей в гос. садах</li>
+                        <li>• Отсутствие индивидуального подхода</li>
+                    </ul>
+                    <div class="mt-4 text-teal-600 text-xs font-bold uppercase tracking-wide">Подробнее →</div>
+                </div>
+
+                <!-- Solution -->
+                <div onclick="openModal('solution')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Решение</h4>
+                        <div class="bg-green-100 p-2 rounded-lg text-xl">💡</div>
+                    </div>
+                    <p class="text-sm text-slate-600 line-clamp-3">Гибкий график (до 20:00), малые группы, билингвальность, безопасность (видеонаблюдение).</p>
+                </div>
+
+                <!-- Value Proposition -->
+                <div onclick="openModal('value')" class="interactive-card bg-teal-50 border border-teal-100 p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2 flex flex-col justify-center text-center">
+                    <div class="mx-auto bg-teal-100 p-3 rounded-full text-2xl mb-4 text-teal-600">💎</div>
+                    <h4 class="font-bold text-teal-900 mb-2">Ценностное предложение</h4>
+                    <p class="text-sm text-teal-800">Центр развития нового поколения. Английский язык + Soft Skills + Здоровье. Гарантия индивидуального внимания.</p>
+                </div>
+
+                <!-- Unfair Advantage -->
+                <div onclick="openModal('advantage')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Преимущество</h4>
+                        <div class="bg-purple-100 p-2 rounded-lg text-xl">🚀</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Стратегическая локация (Академический), сильная репутация, партнерства с застройщиками.</p>
+                </div>
+
+                <!-- Segments -->
+                <div onclick="openModal('segments')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Сегменты</h4>
+                        <div class="bg-blue-100 p-2 rounded-lg text-xl">👥</div>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li>• Молодые профи (25-40 лет)</li>
+                        <li>• Доход выше среднего</li>
+                        <li>• Экспаты и IT-специалисты</li>
+                    </ul>
+                    <div class="mt-4 text-teal-600 text-xs font-bold uppercase tracking-wide">Подробнее →</div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div onclick="openModal('metrics')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Метрики</h4>
+                        <div class="bg-amber-100 p-2 rounded-lg text-xl">📊</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Заполняемость (Occupancy Rate), LTV, NPS, Выручка на ребенка.</p>
+                </div>
+
+                <!-- Channels -->
+                <div onclick="openModal('channels')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Каналы</h4>
+                        <div class="bg-pink-100 p-2 rounded-lg text-xl">📢</div>
+                    </div>
+                    <p class="text-sm text-slate-600">2GIS, Яндекс Карты, Geo-таргетинг, Сарафанное радио.</p>
+                </div>
+
+                <!-- Cost Structure -->
+                <div onclick="openModal('costs')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-2 lg:row-span-1 hover:border-l-red-500">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">Структура затрат</h4>
+                        <div class="text-red-500 text-sm font-bold">$$$</div>
+                    </div>
+                    <p class="text-sm text-slate-600">ФОТ (Персонал), Аренда помещения, Питание, Маркетинг, Лицензирование.</p>
+                </div>
+
+                <!-- Revenue Streams -->
+                <div onclick="openModal('revenue')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-3 lg:row-span-1 hover:border-l-green-500">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">Потоки доходов</h4>
+                        <div class="text-green-500 text-sm font-bold">Revenue</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Абонемент, Вступительный взнос, Доп. услуги (кружки), Субсидии, Группы выходного дня.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Financials -->
+    <section id="financials" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-teal-600 font-bold tracking-wide uppercase text-sm mb-2">Экономика</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900">Финансовая Структура</h3>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-center justify-center">
+                <!-- Cost Chart -->
+                <div class="w-full md:w-1/2">
+                    <div class="bg-white p-4 rounded-xl">
+                        <h4 class="text-center font-bold text-slate-700 mb-4">Распределение затрат</h4>
+                        <div class="chart-container" style="height: 300px; max-width: 400px;">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Breakdown -->
+                <div class="w-full md:w-1/2">
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <h4 class="font-bold text-slate-800 mb-6 text-xl">Ценообразование и Доходы</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+                                <span class="font-medium text-slate-600">Базовый абонемент</span>
+                                <span class="font-bold text-teal-600 text-lg">35 000 ₽ / мес</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+                                <span class="font-medium text-slate-600">VIP (English +)</span>
+                                <span class="font-bold text-teal-600 text-lg">50 000 ₽ / мес</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+                                <span class="font-medium text-slate-600">Вступительный взнос</span>
+                                <span class="font-bold text-slate-800 text-lg">30 000 ₽</span>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-slate-200">
+                            <p class="text-sm text-slate-500 italic">
+                                *Возможно получение государственных субсидий после лицензирования, что снижает нагрузку на родителей и увеличивает поток клиентов.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-bold text-xl text-white">Smart Start Academy</span>
+                <p class="text-sm text-slate-500 mt-1">Инвестиционное предложение 2025</p>
+            </div>
+            <div class="text-xs text-slate-500 text-center md:text-right">
+                <p>Источники данных: Росстат, 2GIS, Департамент образования Екб, SDA Analytics.</p>
+                <p class="mt-1">Разработано на основе исследования рынка частных детских садов.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Lean Canvas Details -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full transform transition-all scale-95 opacity-0" id="modal-content">
+            <div class="p-6 sm:p-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modal-title" class="text-2xl font-bold text-slate-900">Title</h3>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+                </div>
+                <div id="modal-body" class="text-slate-600 text-lg leading-relaxed space-y-4">
+                    <!-- Content injected here -->
+                </div>
+                <div class="mt-8 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- Data Definitions ---
+
+        const canvasDetails = {
+            problem: {
+                title: "Проблематика",
+                body: `<p><strong>Дефицит:</strong> Родители сталкиваются с острой нехваткой мест. В Академическом районе очередь превышает 1200 человек.</p>
+                       <p><strong>Качество:</strong> Муниципальные сады переполнены (до 60 детей в группе), что исключает индивидуальный подход.</p>
+                       <p><strong>Логистика:</strong> Существующие хорошие сады часто находятся далеко от новых спальных районов.</p>`
+            },
+            solution: {
+                title: "Наше Решение",
+                body: `<p><strong>Smart Start Academy:</strong> Частный детский сад полного цикла в шаговой доступности.</p>
+                       <ul class="list-disc pl-5 mt-2">
+                           <li>Гибкий график (7:00 - 20:00) для работающих родителей.</li>
+                           <li>Малые группы (до 15 человек) для качественного развития.</li>
+                           <li>Билингвальная среда с носителем языка.</li>
+                           <li>Онлайн-видеонаблюдение для спокойствия родителей.</li>
+                       </ul>`
+            },
+            value: {
+                title: "Уникальное Ценностное Предложение",
+                body: `<p>Мы не просто "камера хранения" для детей. Мы предлагаем <strong>экосистему развития</strong>.</p>
+                       <p>Сочетание английского языка, Soft Skills (эмоциональный интеллект) и здоровья (гипоаллергенное меню, спорт) в одной локации. Мы гарантируем безопасность и прозрачность процессов для родителей.</p>`
+            },
+            advantage: {
+                title: "Конкурентное Преимущество",
+                body: `<p><strong>Локация:</strong> Мы заходим в район с самым высоким неудовлетворенным спросом.</p>
+                       <p><strong>Команда:</strong> Опытный педагогический состав и управляющие с опытом запуска сетевых проектов.</p>
+                       <p><strong>Репутация:</strong> Строгие стандарты безопасности и открытость (родительский чат, регулярные отчеты).</p>`
+            },
+            segments: {
+                title: "Целевая Аудитория",
+                body: `<p><strong>Ядро:</strong> Молодые семьи (25-40 лет), проживающие в Академическом и Солнечном.</p>
+                       <p><strong>Доход:</strong> Средний и Выше среднего.</p>
+                       <p><strong>Потребность:</strong> Работающие родители, ценящие время и качество; Экспаты; Родители, ориентированные на раннее развитие и языки.</p>`
+            },
+            metrics: {
+                title: "Ключевые Метрики",
+                body: `<ul class="list-disc pl-5">
+                           <li><strong>Occupancy Rate:</strong> Процент заполняемости групп (Цель: 95%).</li>
+                           <li><strong>LTV:</strong> Срок жизни клиента (Цель: 3-4 года до школы).</li>
+                           <li><strong>NPS:</strong> Индекс лояльности (готовность рекомендовать).</li>
+                           <li><strong>EBITDA:</strong> Операционная прибыль.</li>
+                       </ul>`
+            },
+            channels: {
+                title: "Каналы Привлечения",
+                body: `<p><strong>Гиперлокальный маркетинг:</strong></p>
+                       <ul class="list-disc pl-5">
+                           <li>Карты (2GIS, Яндекс) - основной источник поиска "рядом с домом".</li>
+                           <li>Таргетинг в соцсетях по геолокации (радиус 2 км).</li>
+                           <li>Партнерство с УК жилых комплексов.</li>
+                           <li>День открытых дверей и экскурсии.</li>
+                       </ul>`
+            },
+            costs: {
+                title: "Структура Затрат",
+                body: `<p><strong>Постоянные:</strong> Аренда помещения, Оклады персонала, Коммунальные платежи, Охрана/Связь.</p>
+                       <p><strong>Переменные:</strong> Питание (аутсорсинг/своя кухня), Расходные материалы, Маркетинг, Бонусы персоналу.</p>
+                       <p><strong>Start-up:</strong> Ремонт, Оборудование, Лицензирование.</p>`
+            },
+            revenue: {
+                title: "Потоки Доходов",
+                body: `<p><strong>Основные:</strong> Ежемесячная абонентская плата.</p>
+                       <p><strong>Единовременные:</strong> Вступительный взнос.</p>
+                       <p><strong>Дополнительные:</strong> Вечерние группы, кружки выходного дня, индивидуальные занятия (логопед, психолог).</p>`
+            }
+        };
+
+        const conceptContent = {
+            montessori: {
+                icon: "🧩",
+                title: "Монтессори",
+                desc: "Принцип «Помоги мне сделать это самому». Специально подготовленная среда зонируется на реальную жизнь, сенсорику, математику и язык.",
+                list: ["Разновозрастные группы", "Индивидуальный темп", "Дисциплина через свободу"]
+            },
+            reggio: {
+                icon: "🎨",
+                title: "Реджио-Эмилия",
+                desc: "Окружающая среда как «третий учитель». Обучение строится вокруг интересов ребенка через проектную деятельность и творчество.",
+                list: ["Проектное обучение", "Документирование процесса", "Развитие креативности"]
+            },
+            waldorf: {
+                icon: "🌿",
+                title: "Вальдорф",
+                desc: "Акцент на ритме, натуральных материалах и развитии воображения. Отсутствие раннего академического давления и гаджетов.",
+                list: ["Натуральные игрушки", "Творческие занятия", "Естественный ритм дня"]
+            },
+            english: {
+                icon: "🇬🇧",
+                title: "Bilingual Environment",
+                desc: "Погружение в языковую среду 50/50. Второй воспитатель в группе говорит только на английском, создавая естественную потребность в коммуникации.",
+                list: ["Native Speaker (или C1)", "Обучение через игру", "Без зубрежки"]
+            }
+        };
+
+        // --- UI Functions ---
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+                // Hide mobile menu if visible
+                document.getElementById('mobile-menu').classList.add('hidden');
+            }
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Modal Logic
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(key) {
+            const data = canvasDetails[key];
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-body').innerHTML = data.body;
+            
+            modalOverlay.classList.remove('hidden');
+            // Small timeout to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modalOverlay.classList.remove('opacity-0');
+                modalContent.classList.remove('opacity-0', 'scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalOverlay.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modalOverlay.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal on outside click
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Concept Tabs Logic
+        function switchTab(key) {
+            // Update Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-white', 'bg-teal-600', 'shadow-md');
+                btn.classList.add('text-slate-600');
+            });
+            const activeBtn = document.getElementById(`tab-${key}`);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-600');
+
+            // Update Content with fade
+            const contentDiv = document.getElementById('tab-content');
+            contentDiv.classList.add('opacity-0', 'translate-y-2');
+            
+            setTimeout(() => {
+                const data = conceptContent[key];
+                const listItems = data.list.map(item => `<li class="flex items-center text-slate-700 font-medium"><span class="text-teal-500 mr-2">✓</span> ${item}</li>`).join('');
+                
+                contentDiv.innerHTML = `
+                    <div class="lg:grid lg:grid-cols-3 lg:gap-8 items-center">
+                        <div class="col-span-1 flex justify-center mb-6 lg:mb-0">
+                            <div class="w-32 h-32 bg-teal-100 rounded-full flex items-center justify-center text-6xl shadow-inner transform transition hover:scale-110 duration-300">
+                                ${data.icon}
+                            </div>
+                        </div>
+                        <div class="col-span-2">
+                            <h4 class="text-2xl font-bold text-slate-900 mb-3">${data.title}</h4>
+                            <p class="text-slate-600 text-lg mb-4 leading-relaxed">
+                                ${data.desc}
+                            </p>
+                            <ul class="space-y-2">
+                                ${listItems}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                contentDiv.classList.remove('opacity-0', 'translate-y-2');
+            }, 200);
+        }
+
+        // --- Chart Initialization ---
+
+        window.onload = function() {
+            // 1. Market Growth Chart (Line)
+            const ctxMarket = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctxMarket, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023', '2024', '2025 (P)', '2026 (P)', '2029 (P)'],
+                    datasets: [{
+                        label: 'Объем рынка (Млрд ₽)',
+                        data: [57.4, 63.6, 70.0, 74.2, 78.6, 92.3],
+                        borderColor: '#0d9488', // Teal 600
+                        backgroundColor: (context) => {
+                            const ctx = context.chart.ctx;
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                            gradient.addColorStop(0, 'rgba(13, 148, 136, 0.2)');
+                            gradient.addColorStop(1, 'rgba(13, 148, 136, 0)');
+                            return gradient;
+                        },
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#0d9488',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw} Млрд ₽`,
+                                title: (tooltipItems) => `Год: ${tooltipItems[0].label}`
+                            },
+                            backgroundColor: '#1e293b',
+                            padding: 12,
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 14, weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { family: 'Inter' } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+
+            // 2. Deficit Comparison Chart (Horizontal Bar)
+            const ctxDeficit = document.getElementById('deficitChart').getContext('2d');
+            new Chart(ctxDeficit, {
+                type: 'bar',
+                data: {
+                    labels: ['Академический', 'Солнечный', 'Светлый', 'Старая Сортировка'],
+                    datasets: [{
+                        label: 'Дефицит мест',
+                        data: [1200, 350, 300, 150],
+                        backgroundColor: [
+                            '#f43f5e', // Red-Rose (Hero data point)
+                            '#94a3b8', // Muted slate
+                            '#94a3b8',
+                            '#94a3b8'
+                        ],
+                        borderRadius: 8,
+                        barThickness: 30
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw} мест не хватает`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#334155' }, // Darker grid for dark bg
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#e2e8f0', font: { size: 13, weight: '500' } }
+                        }
+                    }
+                }
+            });
+
+            // 3. Cost Structure Chart (Doughnut)
+            const ctxCost = document.getElementById('costChart').getContext('2d');
+            new Chart(ctxCost, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ФОТ (Персонал)', 'Аренда', 'Питание', 'Операционные', 'Маркетинг'],
+                    datasets: [{
+                        data: [45, 25, 15, 10, 5],
+                        backgroundColor: [
+                            '#0d9488', // Teal
+                            '#1e293b', // Navy
+                            '#f59e0b', // Amber
+                            '#64748b', // Slate
+                            '#cbd5e1'  // Light Slate
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 10,
+                                font: { family: 'Inter', size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.label}: ${context.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
