@@ -453,8 +453,27 @@
     <!-- JavaScript Logic -->
     <script>
         // --- Utility Functions ---
+        
+        // Label Wrapping Helper (16 char limit)
+        function splitString(str) {
+            const limit = 16;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
 
-        // --- Data Definitions ---
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= limit) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+         // --- Data Definitions ---
 
         const canvasDetails = {
             problem: {
@@ -523,25 +542,6 @@
             }
         };
         
-        // Label Wrapping Helper (16 char limit)
-        function splitString(str) {
-            const limit = 16;
-            const words = str.split(' ');
-            const lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + 1 + words[i].length <= limit) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-
         // Shared Tooltip Config (Required)
         const sharedTooltipConfig = {
             callbacks: {
