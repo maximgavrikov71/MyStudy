@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инвестиционное Предложение: Smart Start Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+        .card-shadow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+        }
+        .step-connector {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            background-color: #E5E7EB;
+            z-index: 0;
+        }
+    </style>
+    <!-- Palette: Vibrant Blue & Violet (Trust + Modernity + Children/Education) -->
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="gradient-header text-white py-12 px-4 shadow-lg mb-8">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Smart Start Academy</h1>
+            <p class="text-xl md:text-2xl font-semibold text-blue-100">Инвестиционное Предложение</p>
+            <div class="mt-6 flex flex-wrap justify-center gap-4">
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">📍 Екатеринбург, Академический</span>
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">🚀 MVP Модель</span>
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">💰 ROI 5-6 Месяцев</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- Section 1: Executive Summary & Market Gap -->
+        <section>
+            <div class="mb-8 border-l-8 border-blue-600 pl-6">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Резюме и Рыночная Возможность</h2>
+                <p class="text-lg text-gray-700">
+                    Академический район Екатеринбурга переживает критический дефицит мест в детских садах. 
+                    Наш проект предлагает создание билингвального сада премиум-класса, закрывающего потребность 
+                    молодых, платежеспособных семей в качественном образовании, а не просто в «камере хранения» для детей.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h3 class="text-xl font-bold mb-4 text-blue-700 border-b pb-2">Дефицит Мест: Драйвер Спроса</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        На текущий момент Академический район является антилидером по нехватке мест в муниципальных садах. 
+                        Это создает гарантированный спрос для частного сектора.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="deficitChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl card-shadow flex flex-col justify-center h-full">
+                    <h3 class="text-xl font-bold mb-6 text-purple-700 text-center">Демографический Портрет Района</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                            <div class="text-4xl font-extrabold text-blue-600">32</div>
+                            <div class="text-sm text-gray-600 font-semibold mt-1">Средний возраст жителя</div>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg">
+                            <div class="text-4xl font-extrabold text-purple-600">31%</div>
+                            <div class="text-sm text-gray-600 font-semibold mt-1">Доля детей (до 18 лет)</div>
+                        </div>
+                        <div class="p-4 bg-pink-50 rounded-lg">
+                            <div class="text-4xl font-extrabold text-pink-600">1200</div>
+                            <div class="text-sm text-gray-600 font-semibold mt-1">Нехватка мест (Очередь)</div>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <div class="text-4xl font-extrabold text-green-600">1800+</div>
+                            <div class="text-sm text-gray-600 font-semibold mt-1">Рождается детей в год</div>
+                        </div>
+                    </div>
+                    <p class="mt-6 text-gray-600 text-sm text-center italic">
+                        "Самый молодой и быстрорастущий район города с высокой концентрацией целевой аудитории."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Market Analysis (TAM/SAM/SOM) -->
+        <section class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Анализ Рынка (TAM, SAM, SOM)</h2>
+            <p class="text-lg text-gray-700 mb-8">
+                Мы оцениваем рынок через призму платежеспособного спроса на модель Premium/Middle+ (средний чек 35 000 руб.).
+                Даже при консервативной оценке, одна точка "Smart Start Academy" занимает лишь малую часть доступного рынка, оставляя простор для масштабирования.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- TAM Card -->
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-blue-500">
+                    <h4 class="text-lg font-bold text-gray-500 uppercase">TAM (Общий Рынок)</h4>
+                    <div class="text-3xl font-extrabold text-blue-600 my-2">2.1 Млрд ₽</div>
+                    <p class="text-sm text-gray-600">Весь рынок частных садов Екатеринбурга (5-7% охвата).</p>
+                </div>
+                <!-- SAM Card -->
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-purple-500 scale-105 transform z-10">
+                    <h4 class="text-lg font-bold text-gray-500 uppercase">SAM (Академический)</h4>
+                    <div class="text-3xl font-extrabold text-purple-600 my-2">210 Млн ₽</div>
+                    <p class="text-sm text-gray-600">Доступный спрос в районе. (Дефицит мест + ротация).</p>
+                </div>
+                <!-- SOM Card -->
+                <div class="bg-white p-6 rounded-xl shadow border-t-4 border-green-500">
+                    <h4 class="text-lg font-bold text-gray-500 uppercase">SOM (Наш План)</h4>
+                    <div class="text-3xl font-extrabold text-green-600 my-2">26.6 Млн ₽</div>
+                    <p class="text-sm text-gray-600">Выручка одного сада при полной загрузке (60 детей).</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl card-shadow">
+                <h3 class="text-xl font-bold mb-4 text-center text-gray-800">Доля Рынка (SOM vs SAM)</h3>
+                <p class="text-center text-gray-600 mb-6 text-sm max-w-2xl mx-auto">
+                    График демонстрирует потенциал роста. Наша плановая выручка (SOM) составляет всего 12.6% от доступного рынка района (SAM), что подтверждает низкие риски конкуренции.
+                </p>
+                <div class="chart-container">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: MVP Strategy & Economics -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Стратегия MVP: Smart Start Mini</h2>
+                <p class="text-lg text-gray-700">
+                    Вместо капитального строительства мы используем Lean-подход: запуск на арендованных площадях с минимальными вложениями (CAPEX) для подтверждения юнит-экономики.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- Monthly P&L Chart -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h3 class="text-xl font-bold mb-4 text-green-700">Ежемесячная Экономика (Unit Economics)</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        При загрузке 80% (24 ребенка) проект выходит на операционную прибыль ~420 000 руб./мес.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="economicsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Cost Structure Chart -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h3 class="text-xl font-bold mb-4 text-red-700">Структура Расходов (OPEX)</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Основные затраты — это квалифицированный персонал (ФОТ) и аренда помещения. Питание вынесено на аутсорс.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="expensesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MVP Stages Diagram (HTML/CSS) -->
+            <div class="bg-white p-8 rounded-xl card-shadow">
+                <h3 class="text-xl font-bold mb-8 text-center text-gray-800">Этапы Запуска MVP</h3>
+                <div class="relative flex flex-col md:flex-row justify-between items-start gap-6">
+                    <!-- Connector Line (Desktop) -->
+                    <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-gray-200 -z-0"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative z-10 w-full bg-white md:bg-transparent">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg mb-4">1</div>
+                            <h4 class="font-bold text-lg mb-2">Цифровой Тест</h4>
+                            <div class="bg-blue-50 p-4 rounded-lg w-full border border-blue-100">
+                                <p class="text-sm font-semibold text-blue-800">Срок: 2 недели</p>
+                                <ul class="text-sm text-left mt-2 space-y-1 text-gray-700">
+                                    <li>• Лендинг + Таргет</li>
+                                    <li>• Проверка цены 35к</li>
+                                    <li>• Цель: 50 заявок</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10 w-full bg-white md:bg-transparent">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg mb-4">2</div>
+                            <h4 class="font-bold text-lg mb-2">Подготовка</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg w-full border border-purple-100">
+                                <p class="text-sm font-semibold text-purple-800">Срок: 2 месяца</p>
+                                <ul class="text-sm text-left mt-2 space-y-1 text-gray-700">
+                                    <li>• Аренда 100-120 м²</li>
+                                    <li>• Косметический ремонт</li>
+                                    <li>• Найм (English + няни)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10 w-full bg-white md:bg-transparent">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg mb-4">3</div>
+                            <h4 class="font-bold text-lg mb-2">Launch & Scale</h4>
+                            <div class="bg-green-50 p-4 rounded-lg w-full border border-green-100">
+                                <p class="text-sm font-semibold text-green-800">Срок: 3-6 месяц</p>
+                                <ul class="text-sm text-left mt-2 space-y-1 text-gray-700">
+                                    <li>• Открытие 2 групп</li>
+                                    <li>• Загрузка >85%</li>
+                                    <li>• Выход на окупаемость</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: SWOT Analysis -->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">SWOT-Анализ Проекта</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Strengths -->
+                <div class="bg-white p-6 rounded-xl border-l-8 border-green-500 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">💪</span> Сильные Стороны
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-green-500">✓</span>Уникальный продукт (Билингвальность + Монтессори)</li>
+                        <li class="flex items-start"><span class="mr-2 text-green-500">✓</span>Высокий LTV (клиент на 3-4 года)</li>
+                        <li class="flex items-start"><span class="mr-2 text-green-500">✓</span>Локация в эпицентре рождаемости</li>
+                    </ul>
+                </div>
+
+                <!-- Weaknesses -->
+                <div class="bg-white p-6 rounded-xl border-l-8 border-orange-400 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-orange-600 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">⚠️</span> Слабые Стороны
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-orange-400">•</span>Высокие требования к квалификации персонала</li>
+                        <li class="flex items-start"><span class="mr-2 text-orange-400">•</span>Высокий порог входа по аренде</li>
+                        <li class="flex items-start"><span class="mr-2 text-orange-400">•</span>Зависимость от "звездных" воспитателей</li>
+                    </ul>
+                </div>
+
+                <!-- Opportunities -->
+                <div class="bg-white p-6 rounded-xl border-l-8 border-blue-500 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-blue-600 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🚀</span> Возможности
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-blue-500">↗</span>Рост населения района до 325 тыс.</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-500">↗</span>Масштабирование в соседние ЖК</li>
+                        <li class="flex items-start"><span class="mr-2 text-blue-500">↗</span>Доп. доход от кружков для внешних клиентов</li>
+                    </ul>
+                </div>
+
+                <!-- Threats -->
+                <div class="bg-white p-6 rounded-xl border-l-8 border-red-500 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-red-600 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🛡️</span> Угрозы
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 text-sm">
+                        <li class="flex items-start"><span class="mr-2 text-red-500">!</span>Демпинг со стороны нелегальных садов</li>
+                        <li class="flex items-start"><span class="mr-2 text-red-500">!</span>Снижение платежеспособности населения</li>
+                        <li class="flex items-start"><span class="mr-2 text-red-500">!</span>Активное строительство муниципальных садов</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
+            <h2 class="text-3xl font-bold mb-4">Инвестиционный Вывод</h2>
+            <p class="text-lg md:text-xl opacity-90 max-w-3xl mx-auto mb-8">
+                Проект <strong>Smart Start Academy</strong> — это вход в "Голубой океан" на локальном уровне. 
+                Огромный спрос (SAM) встречается с отсутствием качественного предложения. 
+                Модель MVP позволяет начать бизнес с вложениями <strong>1.5 - 2 млн ₽</strong> и окупиться за полгода.
+            </p>
+            <div class="inline-block bg-white text-blue-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition cursor-pointer">
+                Smart Start Academy
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-8 text-center text-sm">
+        <p>© 2025 Smart Start Academy Investment Proposal. Generated based on provided analysis.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Utility Functions ---
+
+        // Label Wrapping Helper (16 char limit)
+        function splitString(str) {
+            const limit = 16;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= limit) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // Shared Tooltip Config (Required)
+        const sharedTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Standard Chart Options
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { family: "'Open Sans', sans-serif", size: 12 },
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                tooltip: sharedTooltipConfig
+            }
+        };
+
+        // Colors (Vibrant Palette)
+        const colors = {
+            blue: '#2563EB',
+            purple: '#7C3AED',
+            pink: '#DB2777',
+            green: '#10B981',
+            orange: '#F59E0B',
+            red: '#EF4444',
+            lightBlue: '#93C5FD'
+        };
+
+        // --- Charts Implementation ---
+
+        // 1. Deficit Chart (Bar)
+        const ctxDeficit = document.getElementById('deficitChart').getContext('2d');
+        const deficitLabels = ["Академический (Дефицит)", "Солнечный (Дефицит)", "Ст. Сортировка (Дефицит)"];
+        const wrappedDeficitLabels = deficitLabels.map(splitString);
+
+        new Chart(ctxDeficit, {
+            type: 'bar',
+            data: {
+                labels: wrappedDeficitLabels,
+                datasets: [{
+                    label: 'Нехватка мест (чел)',
+                    data: [1200, 350, 150],
+                    backgroundColor: [colors.red, colors.orange, colors.lightBlue],
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false } // Hide legend for single dataset
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#E5E7EB' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Market Share Chart (Bar: SAM vs SOM)
+        // Using a bar chart to clearly show the gap between available market and target revenue
+        const ctxMarket = document.getElementById('marketShareChart').getContext('2d');
+        const marketLabels = ["SAM (Доступный Рынок)", "SOM (План Выручки)"];
+        const wrappedMarketLabels = marketLabels.map(splitString);
+
+        new Chart(ctxMarket, {
+            type: 'bar',
+            data: {
+                labels: wrappedMarketLabels,
+                datasets: [{
+                    label: 'Объем (млн руб/год)',
+                    data: [210, 26.6],
+                    backgroundColor: [colors.purple, colors.green],
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bar for better label reading
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#E5E7EB' },
+                        title: { display: true, text: 'Миллионы рублей' }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 3. Economics Chart (Stacked Bar: Revenue vs Cost -> Profit)
+        const ctxEcon = document.getElementById('economicsChart').getContext('2d');
+        const econLabels = ["Выручка (80% загр.)", "Расходы (OPEX)", "Прибыль (EBITDA)"];
+        const wrappedEconLabels = econLabels.map(splitString);
+
+        new Chart(ctxEcon, {
+            type: 'bar',
+            data: {
+                labels: wrappedEconLabels,
+                datasets: [{
+                    label: 'Сумма (Руб/мес)',
+                    data: [840000, 420000, 420000],
+                    backgroundColor: [colors.blue, colors.red, colors.green],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#E5E7EB' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 4. Expenses Chart (Doughnut)
+        const ctxExp = document.getElementById('expensesChart').getContext('2d');
+        const expLabels = ["ФОТ + Налоги (Персонал)", "Аренда помещения", "Прочие расходы"];
+        const wrappedExpLabels = expLabels.map(splitString);
+
+        new Chart(ctxExp, {
+            type: 'doughnut',
+            data: {
+                labels: wrappedExpLabels,
+                datasets: [{
+                    data: [250000, 120000, 50000],
+                    backgroundColor: [colors.purple, colors.orange, colors.lightBlue],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '60%'
+            }
+        });
+
+    </script>
+</body>
+</html>
