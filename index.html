@@ -432,6 +432,24 @@
         <p>© 2025 Инфографика подготовлена на основе анализа рынка и бизнес-модели Lean Canvas для проекта Smart Start Academy.</p>
     </footer>
 
+    <!-- Modal for Lean Canvas Details -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full transform transition-all scale-95 opacity-0" id="modal-content">
+            <div class="p-6 sm:p-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modal-title" class="text-2xl font-bold text-slate-900">Title</h3>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+                </div>
+                <div id="modal-body" class="text-slate-600 text-lg leading-relaxed space-y-4">
+                    <!-- Content injected here -->
+                </div>
+                <div class="mt-8 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- JavaScript Logic -->
     <script>
         // --- Utility Functions ---
