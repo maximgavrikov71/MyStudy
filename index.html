@@ -118,7 +118,116 @@
                 </div>
             </div>
         </section>
+        
+<!-- SECTION 0: Business Model (Lean Canvas) -->
+    <section id="business" class="py-20 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <h2 class="text-teal-600 font-bold tracking-wide uppercase text-sm mb-2">Бизнес-Модель</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">
+                    Lean Canvas
+                </h3>
+                <p class="mt-4 text-slate-500">
+                    Интерактивная структура бизнеса. Нажмите на любой блок, чтобы раскрыть детали.
+                </p>
+            </div>
 
+            <!-- CSS Grid for Lean Canvas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                
+                <!-- Problem -->
+                <div onclick="openModal('problem')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Проблема</h4>
+                        <div class="bg-red-100 p-2 rounded-lg text-xl">⚠️</div>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li>• Острая нехватка мест (1200+)</li>
+                        <li>• Группы по 60 детей в гос. садах</li>
+                        <li>• Отсутствие индивидуального подхода</li>
+                    </ul>
+                    <div class="mt-4 text-teal-600 text-xs font-bold uppercase tracking-wide">Подробнее →</div>
+                </div>
+
+                <!-- Solution -->
+                <div onclick="openModal('solution')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Решение</h4>
+                        <div class="bg-green-100 p-2 rounded-lg text-xl">💡</div>
+                    </div>
+                    <p class="text-sm text-slate-600 line-clamp-3">Гибкий график (до 20:00), малые группы, билингвальность, безопасность (видеонаблюдение).</p>
+                </div>
+
+                <!-- Value Proposition -->
+                <div onclick="openModal('value')" class="interactive-card bg-teal-50 border border-teal-100 p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2 flex flex-col justify-center text-center">
+                    <div class="mx-auto bg-teal-100 p-3 rounded-full text-2xl mb-4 text-teal-600">💎</div>
+                    <h4 class="font-bold text-teal-900 mb-2">Ценностное предложение</h4>
+                    <p class="text-sm text-teal-800">Центр развития нового поколения. Английский язык + Soft Skills + Здоровье. Гарантия индивидуального внимания.</p>
+                </div>
+
+                <!-- Unfair Advantage -->
+                <div onclick="openModal('advantage')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Преимущество</h4>
+                        <div class="bg-purple-100 p-2 rounded-lg text-xl">🚀</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Стратегическая локация (Академический), сильная репутация, партнерства с застройщиками.</p>
+                </div>
+
+                <!-- Segments -->
+                <div onclick="openModal('segments')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1 lg:row-span-2">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Сегменты</h4>
+                        <div class="bg-blue-100 p-2 rounded-lg text-xl">👥</div>
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li>• Молодые профи (25-40 лет)</li>
+                        <li>• Доход выше среднего</li>
+                        <li>• Экспаты и IT-специалисты</li>
+                    </ul>
+                    <div class="mt-4 text-teal-600 text-xs font-bold uppercase tracking-wide">Подробнее →</div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div onclick="openModal('metrics')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Метрики</h4>
+                        <div class="bg-amber-100 p-2 rounded-lg text-xl">📊</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Заполняемость (Occupancy Rate), LTV, NPS, Выручка на ребенка.</p>
+                </div>
+
+                <!-- Channels -->
+                <div onclick="openModal('channels')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="font-bold text-slate-800">Каналы</h4>
+                        <div class="bg-pink-100 p-2 rounded-lg text-xl">📢</div>
+                    </div>
+                    <p class="text-sm text-slate-600">2GIS, Яндекс Карты, Geo-таргетинг, Сарафанное радио.</p>
+                </div>
+
+                <!-- Cost Structure -->
+                <div onclick="openModal('costs')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-2 lg:row-span-1 hover:border-l-red-500">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">Структура затрат</h4>
+                        <div class="text-red-500 text-sm font-bold">$$$</div>
+                    </div>
+                    <p class="text-sm text-slate-600">ФОТ (Персонал), Аренда помещения, Питание, Маркетинг, Лицензирование.</p>
+                </div>
+
+                <!-- Revenue Streams -->
+                <div onclick="openModal('revenue')" class="interactive-card bg-white p-6 rounded-xl shadow-sm cursor-pointer lg:col-span-3 lg:row-span-1 hover:border-l-green-500">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">Потоки доходов</h4>
+                        <div class="text-green-500 text-sm font-bold">Revenue</div>
+                    </div>
+                    <p class="text-sm text-slate-600">Абонемент, Вступительный взнос, Доп. услуги (кружки), Субсидии, Группы выходного дня.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        
         <!-- Section 2: Market Analysis (TAM/SAM/SOM) -->
         <section class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Анализ Рынка (TAM, SAM, SOM)</h2>
