@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Start Academy - Инвестиционная Инфографика</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F8FAFC; /* Slate 50 */
+            color: #334155; /* Slate 700 */
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Responsive Chart Container Rules */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+
+        /* Mobile adjustment for chart height */
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        /* Custom Scrollbar for a polished feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4338ca; 
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Timeline Connector Line */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: #e2e8f0;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+    </style>
+    <!-- Palette Name: Vibrant Tech Trio (Indigo/Cyan/Rose) -->
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- HERO SECTION -->
+    <header class="bg-gradient-to-br from-indigo-900 via-indigo-700 to-cyan-600 text-white pt-20 pb-16 px-4 shadow-2xl rounded-b-[3rem] mb-12">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-block bg-rose-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider shadow-lg transform hover:scale-105 transition-transform">
+                Инвестиционное Предложение
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-md">
+                Smart Start Academy
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-indigo-100 max-w-4xl mx-auto mb-12 leading-relaxed">
+                Создание премиального центра развития детей в Екатеринбурге. <br>
+                <span class="font-semibold text-cyan-300">Интегративная методика</span> + <span class="font-semibold text-cyan-300">Билингвальная среда</span> + <span class="font-semibold text-cyan-300">Гарантированный спрос</span>.
+            </p>
+            
+            <!-- Key Stats Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-lg hover:bg-white/20 transition-all">
+                    <div class="text-4xl font-extrabold text-cyan-300 mb-1">5.3 млн ₽</div>
+                    <div class="text-sm font-medium text-indigo-100 uppercase tracking-wide">CAPEX (MVP Старт)</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-lg hover:bg-white/20 transition-all">
+                    <div class="text-4xl font-extrabold text-rose-400 mb-1">40%+</div>
+                    <div class="text-sm font-medium text-indigo-100 uppercase tracking-wide">Целевая Маржа</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-lg hover:bg-white/20 transition-all">
+                    <div class="text-4xl font-extrabold text-cyan-300 mb-1">18-24</div>
+                    <div class="text-sm font-medium text-indigo-100 uppercase tracking-wide">Мес. Окупаемость</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-lg hover:bg-white/20 transition-all">
+                    <div class="text-4xl font-extrabold text-rose-400 mb-1">1,200</div>
+                    <div class="text-sm font-medium text-indigo-100 uppercase tracking-wide">Дефицит Мест</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 space-y-24 pb-20">
+
+        <!-- PLAN SUMMARY (HTML Comment) -->
+        <!-- 
+        Narrative Structure:
+        1. Market Opportunity: Validate the problem (deficit) and market size (SAM).
+        2. Concept: Explain the product (methodology) solving the problem.
+        3. Business Model: How we make money (Lean Canvas visual).
+        4. Strategy: Comparison of MVP vs Target state (Financials).
+        5. SWOT: Risk analysis.
+        6. Conclusion: Roadmap and Call to Action.
+        -->
+
+        <!-- SECTION 1: MARKET OPPORTUNITY -->
+        <section>
+            <div class="flex flex-col md:flex-row items-end gap-4 mb-8">
+                <div class="flex-1">
+                    <h2 class="text-4xl font-extrabold text-slate-800 border-l-8 border-indigo-600 pl-6">Рыночный Потенциал</h2>
+                </div>
+                <div class="flex-1 md:text-right">
+                    <p class="text-lg text-slate-600 font-medium">Академический район: Демографическая уникальность и потенциал спроса.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                <!-- Text & TAM/SAM/SOM Chart -->
+                <div class="flex flex-col gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 card-hover">
+                        <h3 class="text-2xl font-bold text-indigo-700 mb-4">Почему здесь?</h3>
+                        <ul class="space-y-4 text-slate-700">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🏙️</span>
+                                <span><strong>Академический район:</strong> 125,000+ жителей, самый молодой район города (ср. возраст 32 года).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">💰</span>
+                                <span><strong>Платежеспособность:</strong> Целевой доход семьи 150-250к ₽. Готовы платить за безопасность и развитие.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🎯</span>
+                                <span><strong>Масштаб рынка (SAM):</strong> 175 млн ₽/год — объем рынка только в одном районе.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-indigo-50 p-8 rounded-2xl border border-indigo-100 flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-indigo-800 mb-2 text-center">Воронка Рынка (млн ₽/год)</h3>
+                        <p class="text-sm text-indigo-600 mb-6 text-center">Мы планируем захватить 16% доступного рынка (SOM).</p>
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Focus: Deficit Visualization (CSS Bars) -->
+                <div class="bg-white p-10 rounded-2xl shadow-xl border-t-8 border-rose-500 flex flex-col justify-center text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-black text-rose-500 pointer-events-none">!</div>
+                    
+                    <h3 class="text-2xl font-bold text-slate-800 mb-8">Критический Разрыв Спроса</h3>
+                    
+                    <div class="mb-10">
+                        <div class="flex justify-between items-end mb-2 px-2">
+                            <span class="text-sm font-bold text-slate-500 uppercase tracking-widest">Муниципальная Очередь</span>
+                            <span class="text-3xl font-black text-rose-500">1,200</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-6 overflow-hidden shadow-inner">
+                            <div class="bg-rose-500 h-full rounded-full shadow-lg" style="width: 100%"></div>
+                        </div>
+                        <p class="text-xs text-left mt-2 text-slate-400">Родители вынуждены искать частную альтернативу.</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-end mb-2 px-2">
+                            <span class="text-sm font-bold text-slate-500 uppercase tracking-widest">Вместимость SSA (Целевая)</span>
+                            <span class="text-3xl font-black text-indigo-600">60</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-6 overflow-hidden shadow-inner">
+                            <div class="bg-indigo-600 h-full rounded-full shadow-lg" style="width: 5%"></div>
+                        </div>
+                        <p class="text-xs text-left mt-2 text-slate-400">Покрытие всего 5% дефицита гарантирует полную загрузку.</p>
+                    </div>
+                    
+                    <div class="mt-12 bg-rose-50 p-6 rounded-xl border border-rose-100">
+                        <p class="font-bold text-rose-700 text-lg mb-1">Вывод Инвестора:</p>
+                        <p class="text-rose-600">Рынок не насыщен. Открытие 2-3 садов в районе закроет менее 20% текущего дефицита.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: CONCEPT -->
+        <section class="bg-white rounded-[2rem] shadow-2xl p-8 md:p-16 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-3 h-full bg-gradient-to-b from-cyan-400 to-indigo-600"></div>
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-6">Образовательная Концепция</h2>
+                <p class="text-xl text-slate-600 mb-12 max-w-4xl">
+                    Мы не "камера хранения". Мы продаем родителям <span class="text-indigo-600 font-bold">измеримый результат</span> развития ребенка через интегративный подход.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pillar 1 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-indigo-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                        <div class="text-5xl mb-6 bg-indigo-100 w-20 h-20 flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">🧠</div>
+                        <h3 class="text-2xl font-bold text-indigo-700 mb-3">Монтессори</h3>
+                        <p class="text-sm font-semibold text-indigo-400 mb-3 uppercase tracking-wider">Hard Skills</p>
+                        <p class="text-slate-600 leading-relaxed">Развитие логики, математических способностей и навыков практической жизни. Формирование самостоятельности.</p>
+                    </div>
+                    <!-- Pillar 2 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-cyan-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                        <div class="text-5xl mb-6 bg-cyan-100 w-20 h-20 flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">🎨</div>
+                        <h3 class="text-2xl font-bold text-cyan-600 mb-3">Реджио-Эмилия</h3>
+                        <p class="text-sm font-semibold text-cyan-400 mb-3 uppercase tracking-wider">Soft Skills</p>
+                        <p class="text-slate-600 leading-relaxed">Проектная деятельность, творческие ателье и эмоциональный интеллект. Среда как "третий учитель".</p>
+                    </div>
+                    <!-- Pillar 3 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-rose-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-xl group">
+                        <div class="text-5xl mb-6 bg-rose-100 w-20 h-20 flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">🗣️</div>
+                        <h3 class="text-2xl font-bold text-rose-500 mb-3">Билингвальность</h3>
+                        <p class="text-sm font-semibold text-rose-400 mb-3 uppercase tracking-wider">Language</p>
+                        <p class="text-slate-600 leading-relaxed">Полнотекстовое погружение с носителями языка. Формат "One person — one language" (OPOL) 4 часа в день.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: BUSINESS MODEL (LEAN CANVAS) -->
+        <section>
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl font-extrabold text-slate-800 mb-4">Бизнес-Модель</h2>
+                <p class="text-lg text-slate-600">Структура доходов диверсифицирована, а расходы оптимизированы для обеспечения устойчивости. Ключевой актив — персонал.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Revenue Chart -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="w-3 h-8 bg-green-500 rounded-full mr-3"></span>
+                        Источники Дохода
+                    </h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                    <div class="mt-6 p-4 bg-green-50 rounded-xl border border-green-100 text-center">
+                        <p class="text-green-800 font-bold text-lg">Базовая цена: 45,000 ₽/мес</p>
+                        <p class="text-xs text-green-600 mt-1">Обеспечивает 88% стабильного потока</p>
+                    </div>
+                </div>
+
+                <!-- Cost Chart -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="w-3 h-8 bg-rose-500 rounded-full mr-3"></span>
+                        Структура Расходов (OPEX)
+                    </h3>
+                    <div class="chart-container flex-grow">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="mt-6 p-4 bg-rose-50 rounded-xl border border-rose-100 text-center">
+                        <p class="text-rose-800 font-bold text-lg">ФОТ + Налоги: 46%</p>
+                        <p class="text-xs text-rose-600 mt-1">Высокая квалификация требует высоких зарплат</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: STRATEGY COMPARISON -->
+        <section>
+            <div class="bg-slate-900 text-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 lg:p-16 relative overflow-hidden">
+                <!-- Decoration -->
+                <div class="absolute top-[-20%] right-[-10%] w-96 h-96 bg-indigo-600 rounded-full filter blur-[100px] opacity-30"></div>
+                <div class="absolute bottom-[-20%] left-[-10%] w-96 h-96 bg-rose-600 rounded-full filter blur-[100px] opacity-20"></div>
+
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-slate-700 pb-8">
+                        <div>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">Стратегия Роста</h2>
+                            <p class="text-xl text-indigo-300">Переход от MVP (валидация) к Целевому Формату (прибыль).</p>
+                        </div>
+                        <div class="mt-6 md:mt-0">
+                             <div class="text-right">
+                                <span class="block text-sm text-slate-400 uppercase tracking-widest mb-1">ROI (3 года)</span>
+                                <span class="text-4xl font-bold text-green-400">150%</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        <!-- Left Info Cards -->
+                        <div class="lg:col-span-4 space-y-6">
+                            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-cyan-500 transition-colors">
+                                <h4 class="text-cyan-400 text-2xl font-bold mb-2">Формат MVP</h4>
+                                <div class="text-sm text-slate-400 mb-4 uppercase tracking-wider font-semibold">Этап Запуска</div>
+                                <ul class="space-y-3 text-slate-300">
+                                    <li>📐 <strong>240 м²</strong> (2 группы)</li>
+                                    <li>👶 <strong>30 детей</strong> (максимум)</li>
+                                    <li>💰 <strong>5.3 млн ₽</strong> CAPEX</li>
+                                    <li>🎯 <strong>Цель:</strong> Проверка цены и спроса</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-indigo-900 p-6 rounded-2xl border border-indigo-700 hover:border-rose-500 transition-colors shadow-lg">
+                                <h4 class="text-rose-400 text-2xl font-bold mb-2">Целевой Формат</h4>
+                                <div class="text-sm text-indigo-300 mb-4 uppercase tracking-wider font-semibold">Этап Масштабирования</div>
+                                <ul class="space-y-3 text-indigo-100">
+                                    <li>📐 <strong>480 м²</strong> (4 группы)</li>
+                                    <li>👶 <strong>60 детей</strong> (максимум)</li>
+                                    <li>📈 <strong>40%+</strong> Маржинальность</li>
+                                    <li>🎯 <strong>Цель:</strong> Окупаемость 18-24 мес</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Right Chart -->
+                        <div class="lg:col-span-8 bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
+                            <h3 class="text-center text-indigo-200 font-semibold mb-6">Сравнение Месячной Экономики (млн ₽)</h3>
+                            <div class="chart-container">
+                                <canvas id="financeChart"></canvas>
+                            </div>
+                            <p class="text-center text-xs text-slate-500 mt-4">Целевой формат обеспечивает выход в стабильную зону прибыли.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SWOT Analysis -->
+        <section>
+            <h2 class="text-4xl font-extrabold text-slate-800 mb-12 text-center">SWOT Анализ Проекта</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Strengths -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-green-500 hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="bg-green-100 text-green-600 w-10 h-10 flex items-center justify-center rounded-lg mr-4 text-lg">S</span> 
+                        Сильные стороны
+                    </h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-green-500 mr-2">✓</span>Острый дефицит (1,200 мест) в районе.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">✓</span>Молодая платежеспособная аудитория.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">✓</span>Уникальная интегративная методика.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2">✓</span>Легко масштабируемая модель.</li>
+                    </ul>
+                </div>
+
+                <!-- Weaknesses -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-orange-500 hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="bg-orange-100 text-orange-600 w-10 h-10 flex items-center justify-center rounded-lg mr-4 text-lg">W</span> 
+                        Слабые стороны
+                    </h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-orange-500 mr-2">!</span>Высокий CAPEX (5.3 млн) для старта.</li>
+                        <li class="flex items-start"><span class="text-orange-500 mr-2">!</span>Критическая зависимость от персонала.</li>
+                        <li class="flex items-start"><span class="text-orange-500 mr-2">!</span>Операционные убытки на этапе запуска.</li>
+                    </ul>
+                </div>
+
+                <!-- Opportunities -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-blue-500 hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 w-10 h-10 flex items-center justify-center rounded-lg mr-4 text-lg">O</span> 
+                        Возможности
+                    </h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">↗</span>Открытие 2-3 филиалов в районе.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">↗</span>Продажа франшизы в другие районы.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">↗</span>Получение государственных субсидий.</li>
+                    </ul>
+                </div>
+
+                <!-- Threats -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border-l-8 border-rose-500 hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                        <span class="bg-rose-100 text-rose-600 w-10 h-10 flex items-center justify-center rounded-lg mr-4 text-lg">T</span> 
+                        Угрозы
+                    </h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-rose-500 mr-2">⚠️</span>Снижение рождаемости (долгосрочно).</li>
+                        <li class="flex items-start"><span class="text-rose-500 mr-2">⚠️</span>Репутационные риски (безопасность).</li>
+                        <li class="flex items-start"><span class="text-rose-500 mr-2">⚠️</span>Экономическая нестабильность семей.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: ROADMAP & CONCLUSION -->
+        <section class="pb-12">
+            <div class="bg-gradient-to-r from-cyan-600 to-indigo-700 rounded-3xl shadow-2xl p-10 md:p-16 text-white text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+                
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-12 relative z-10">Дорожная Карта Инвестора</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 relative z-10 timeline-line">
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 relative z-10">
+                        <div class="text-2xl font-bold text-cyan-300 mb-2">01</div>
+                        <h4 class="font-bold mb-2">Анализ</h4>
+                        <p class="text-sm text-indigo-100">Маркетинговое исследование (200+ опросов)</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 relative z-10">
+                        <div class="text-2xl font-bold text-cyan-300 mb-2">02</div>
+                        <h4 class="font-bold mb-2">Финансы</h4>
+                        <p class="text-sm text-indigo-100">Резерв 7-8 млн ₽ (CAPEX + OPEX)</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 relative z-10">
+                        <div class="text-2xl font-bold text-cyan-300 mb-2">03</div>
+                        <h4 class="font-bold mb-2">Команда</h4>
+                        <p class="text-sm text-indigo-100">Найм директора и педагогов (English C1)</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 relative z-10">
+                        <div class="text-2xl font-bold text-rose-300 mb-2">04</div>
+                        <h4 class="font-bold mb-2">Запуск</h4>
+                        <p class="text-sm text-indigo-100">Открытие MVP и заполнение за 6 мес.</p>
+                    </div>
+                </div>
+
+                <div class="max-w-3xl mx-auto relative z-10">
+                    <p class="text-xl md:text-2xl font-light mb-10 text-indigo-100 leading-relaxed">
+                        Smart Start Academy предлагает уникальную возможность капитализировать острый рыночный дефицит, создавая социально значимый и высокомаржинальный актив.
+                    </p>
+                    <button class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all transform hover:scale-105 hover:shadow-2xl text-lg">
+                        Обсудить Инвестиции
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <p class="mb-4 font-bold text-slate-400">Smart Start Academy Investment Proposal</p>
+            <p>Данная инфографика создана на основе предоставленных материалов и прогнозов. <br>Финансовые показатели являются оценочными.</p>
+            <p class="mt-8 opacity-50">© 2025 Smart Start Academy.</p>
+        </div>
+    </footer>
+
+    <!-- CHART.JS LOGIC -->
+    <script>
+        // --- 1. Label Wrapping Logic (Strict ~16 chars) ---
+        function wrapLabel(label) {
+            const maxChars = 16;
+            // If label is short enough, return as string
+            if (label.length <= maxChars) return label;
+            
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                // If adding the next word fits within limit
+                if ((currentLine + " " + words[i]).length <= maxChars) {
+                    currentLine += " " + words[i];
+                } else {
+                    // Push current line and start new one
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- 2. Tooltip Configuration (Global Requirement) ---
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    // Check if label was wrapped into an array
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            },
+            padding: 12,
+            cornerRadius: 8,
+            titleFont: { size: 14, family: 'Montserrat' },
+            bodyFont: { size: 13, family: 'Roboto' }
+        };
+
+        // --- 3. Chart Generation ---
+        
+        Chart.defaults.font.family = "'Roboto', sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        // Chart 1: Market Potential (TAM/SAM/SOM)
+        // Goal: Compare market sizes. Horizontal Bar for better label reading.
+        const ctxMarket = document.getElementById('marketChart').getContext('2d');
+        new Chart(ctxMarket, {
+            type: 'bar',
+            data: {
+                labels: ['TAM (Рынок Екб)', 'SAM (Район)', 'SOM (Целевой)'].map(l => wrapLabel(l)),
+                datasets: [{
+                    label: 'Объем Рынка (млн ₽)',
+                    data: [2044, 175, 29.5], 
+                    backgroundColor: [
+                        'rgba(226, 232, 240, 0.5)', // Slate 200
+                        'rgba(6, 182, 212, 0.7)',   // Cyan 500
+                        'rgba(79, 70, 229, 1)'      // Indigo 600
+                    ],
+                    borderColor: [
+                        'rgba(226, 232, 240, 1)',
+                        'rgba(6, 182, 212, 1)',
+                        'rgba(79, 70, 229, 1)'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { callback: function(value) { return value + 'M'; } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { weight: 'bold', size: 12 } }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Revenue Streams
+        // Goal: Composition. Doughnut.
+        const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctxRevenue, {
+            type: 'doughnut',
+            data: {
+                labels: ['Абонементы (88%)', 'Полдня (5%)', 'Взнос (4%)', 'Доп. услуги (3%)'].map(l => wrapLabel(l)),
+                datasets: [{
+                    data: [88, 5, 4, 3],
+                    backgroundColor: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0'], // Green Scale
+                    borderWidth: 4,
+                    borderColor: '#ffffff',
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { usePointStyle: true, padding: 20, font: { size: 11 } } 
+                    },
+                    tooltip: tooltipConfig
+                },
+                cutout: '65%',
+                layout: { padding: 10 }
+            }
+        });
+
+        // Chart 3: Cost Structure
+        // Goal: Composition. Doughnut.
+        const ctxCost = document.getElementById('costChart').getContext('2d');
+        new Chart(ctxCost, {
+            type: 'doughnut',
+            data: {
+                labels: ['Персонал (46%)', 'Аренда/ЖКХ (25%)', 'Питание (23%)', 'Материалы (6%)'].map(l => wrapLabel(l)),
+                datasets: [{
+                    data: [46, 25, 23, 6],
+                    backgroundColor: ['#f43f5e', '#fb7185', '#fda4af', '#e2e8f0'], // Rose Scale
+                    borderWidth: 4,
+                    borderColor: '#ffffff',
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { usePointStyle: true, padding: 20, font: { size: 11 } } 
+                    },
+                    tooltip: tooltipConfig
+                },
+                cutout: '65%',
+                layout: { padding: 10 }
+            }
+        });
+
+        // Chart 4: Finance Comparison (MVP vs Target)
+        // Goal: Comparison. Grouped Bar.
+        const ctxFinance = document.getElementById('financeChart').getContext('2d');
+        new Chart(ctxFinance, {
+            type: 'bar',
+            data: {
+                labels: ['Доходы (Мес)', 'Расходы (Мес)', 'Прибыль (Мес)'].map(l => wrapLabel(l)),
+                datasets: [
+                    {
+                        label: 'MVP (Старт)',
+                        data: [1.23, 1.74, -0.51],
+                        backgroundColor: '#94a3b8', // Slate 400
+                        borderRadius: 4,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    },
+                    {
+                        label: 'Целевой (Масштаб)',
+                        data: [2.46, 2.12, 0.34],
+                        backgroundColor: '#4f46e5', // Indigo 600
+                        borderRadius: 4,
+                        barPercentage: 0.7,
+                        categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        labels: { color: '#cbd5e1', usePointStyle: true } 
+                    },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#cbd5e1' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#cbd5e1' }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
