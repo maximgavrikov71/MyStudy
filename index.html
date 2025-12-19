@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инвестиционное предложение: Smart Start Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; background-color: #F9FAFB; color: #1F2937; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 350px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+        .active-tab { border-bottom: 2px solid #D97706; color: #D97706; font-weight: 600; }
+        .inactive-tab { color: #6B7280; }
+        .inactive-tab:hover { color: #374151; }
+    </style>
+    <!-- Chosen Palette: Warm Professional - Background: #F9FAFB (Cool Gray 50), Primary Text: #1F2937 (Gray 900), Accents: #D97706 (Amber 600) for Investment/Money, #059669 (Emerald 600) for Growth/Success, #3B82F6 (Blue 500) for Information -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: Immediate value prop & summary.
+         2. Market Context: Interactive Data Viz of the deficit and TAM/SAM/SOM to justify the "Why Now".
+         3. The Solution (Product): Flip cards or simple grid for the methodology (Montessori/Reggio/Waldorf).
+         4. Business Strategy (The Pivot): Interactive toggle comparing MVP vs Target Format metrics. This is the core logic of the proposal.
+         5. Financials: Charts showing revenue/expense breakdown and projected ROI.
+         6. Risk Analysis: Interactive SWOT and "Worst Case" calculator visualization.
+         7. Conclusion/CTA.
+         This structure moves from "Problem" -> "Solution" -> "Execution" -> "Reward" -> "Risk Mitigation", a standard logical flow for investors.
+    -->
+    <!-- Visualization & Content Choices:
+         1. Market Deficit: Simple stat counter or bar chart to show Supply vs Demand.
+         2. TAM/SAM/SOM: Bar Chart (Horizontal) to show the funnel clearly. Goal: Inform about market size.
+         3. Economics: Grouped Bar Chart (Income vs Expense) with a toggle for MVP vs Target. Goal: Compare profitability.
+         4. ROI: Simple Line Chart showing the trajectory to breakeven. Goal: Show growth.
+         5. SWOT: 2x2 Grid with hover effects. Goal: Organize qualitative analysis.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-gray-800 tracking-tight">Smart Start <span class="text-amber-600">Academy</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="scrollToSection('market')" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Рынок</button>
+                    <button onclick="scrollToSection('product')" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Продукт</button>
+                    <button onclick="scrollToSection('strategy')" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Стратегия</button>
+                    <button onclick="scrollToSection('financials')" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Финансы</button>
+                    <button onclick="scrollToSection('risks')" class="text-gray-600 hover:text-amber-600 font-medium transition-colors">Риски</button>
+                </div>
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="scrollToSection('market')" class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-gray-100">Рынок</button>
+                <button onclick="scrollToSection('product')" class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-gray-100">Продукт</button>
+                <button onclick="scrollToSection('strategy')" class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-gray-100">Стратегия</button>
+                <button onclick="scrollToSection('financials')" class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-gray-100">Финансы</button>
+                <button onclick="scrollToSection('risks')" class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-gray-100">Риски</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                    Инвестиции в <br><span class="text-amber-600">Гарантированный Спрос</span>
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    Smart Start Academy — инновационный билингвальный детский сад в районе Академический (Екатеринбург). 
+                    Мы закрываем острый дефицит в 1 200 мест и предлагаем модель с ROI +150% за 3 года.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="scrollToSection('financials')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-105">
+                        Смотреть цифры
+                    </button>
+                    <button onclick="scrollToSection('market')" class="bg-white border-2 border-gray-200 text-gray-700 hover:border-amber-600 hover:text-amber-600 font-bold py-3 px-8 rounded-lg transition-all">
+                        Изучить рынок
+                    </button>
+                </div>
+                <div class="mt-8 flex items-center space-x-6 text-sm text-gray-500">
+                    <div class="flex items-center"><span class="text-green-500 mr-2 text-xl">✓</span> Дефицит 1,200 мест</div>
+                    <div class="flex items-center"><span class="text-green-500 mr-2 text-xl">✓</span> MVP Старт</div>
+                </div>
+            </div>
+            <div class="bg-amber-50 rounded-2xl p-8 shadow-inner border border-amber-100">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b border-amber-200 pb-2">Ключевые показатели</h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-xl shadow-sm">
+                        <div class="text-gray-500 text-sm">Инвестиции (Раунд А)</div>
+                        <div class="text-2xl font-bold text-gray-900">8.17 млн ₽</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm">
+                        <div class="text-gray-500 text-sm">Прибыль (Целевая)</div>
+                        <div class="text-2xl font-bold text-green-600">338 тыс ₽/мес</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm">
+                        <div class="text-gray-500 text-sm">Окупаемость</div>
+                        <div class="text-2xl font-bold text-gray-900">21 месяц</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm">
+                        <div class="text-gray-500 text-sm">ROI (3 года)</div>
+                        <div class="text-2xl font-bold text-green-600">+150%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Market Section -->
+    <section id="market" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Рыночный потенциал</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    Район Академический испытывает критический дефицит мест в детских садах. Наше предложение основывается на четком математическом расчете спроса.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <!-- Market Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">Воронка Рынка (TAM / SAM / SOM)</h3>
+                    <div class="chart-container">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-500 text-center">
+                        Мы планируем занять менее 17% доступного рынка (SAM), что оставляет пространство для открытия еще 2-3 филиалов.
+                    </div>
+                </div>
+
+                <!-- Key Drivers -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Проблема: Острый Дефицит</h3>
+                        <p class="text-gray-600">
+                            В муниципальных садах не хватает <span class="font-bold text-red-600">1,200 мест</span>. 
+                            Родители ждут очереди 2-3 года. Группы переполнены (40-60 детей), что снижает качество образования.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Наше Решение</h3>
+                        <p class="text-gray-600 mb-4">
+                            Премиальный детский сад с гарантированным качеством и малыми группами.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-700">
+                                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-sm font-bold">1</span>
+                                Целевая аудитория: Доход 150-250к ₽/мес
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-sm font-bold">2</span>
+                                Готовность платить: 45,000 ₽/мес
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 text-sm font-bold">3</span>
+                                Локация: Шаговая доступность
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Инновационный Продукт</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    Мы объединили три лучшие мировые практики для создания уникального торгового предложения (УТП), которое сложно скопировать конкурентам.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Methodology Cards -->
+                <div class="bg-amber-50 p-6 rounded-xl card-hover transition-all border border-amber-100 text-center">
+                    <div class="text-4xl mb-4">🧩</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Монтессори</h3>
+                    <p class="text-gray-600 text-sm">
+                        Развитие самостоятельности, логики и мелкой моторики. Ребенок учится принимать решения сам.
+                    </p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-xl card-hover transition-all border border-blue-100 text-center">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Реджио-Эмилия</h3>
+                    <p class="text-gray-600 text-sm">
+                        Творчество, проектная деятельность и soft skills. Развитие через самовыражение и искусство.
+                    </p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-xl card-hover transition-all border border-green-100 text-center">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Вальдорф</h3>
+                    <p class="text-gray-600 text-sm">
+                        Эмоциональный интеллект, здоровье, ритм дня и гармония с окружающим миром.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Features -->
+            <div class="mt-12 bg-gray-900 rounded-2xl p-8 md:p-12 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Премиальный Сервис</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-amber-500 mr-3 text-xl">★</span>
+                                <div>
+                                    <strong class="block text-amber-400">Билингвальная среда</strong>
+                                    <span class="text-gray-300 text-sm">Английский язык интегрирован в ежедневную рутину с носителями.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-500 mr-3 text-xl">★</span>
+                                <div>
+                                    <strong class="block text-amber-400">Малые группы</strong>
+                                    <span class="text-gray-300 text-sm">Максимум 15 детей (против 40-60 в муниципальных садах).</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-500 mr-3 text-xl">★</span>
+                                <div>
+                                    <strong class="block text-amber-400">Прозрачность</strong>
+                                    <span class="text-gray-300 text-sm">Онлайн-видеонаблюдение и ежедневные отчеты для родителей.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h4 class="text-lg font-bold mb-4 text-center">Бизнес-модель (Lean Canvas)</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Абонемент</span>
+                                <span class="font-bold">45,000 ₽/мес (88% выручки)</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-700 pb-2">
+                                <span class="text-gray-400">Взнос</span>
+                                <span class="font-bold">25,000 ₽ (единоразово)</span>
+                            </div>
+                            <div class="flex justify-between pb-2">
+                                <span class="text-gray-400">Доп. услуги</span>
+                                <span class="font-bold">Группы неполного дня, кружки</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Стратегия: От MVP к Масштабу</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    Мы начинаем с малого, чтобы минимизировать риски, и масштабируемся для получения прибыли. Сравните экономику двух этапов.
+                </p>
+            </div>
+
+            <!-- Strategy Toggle -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-white p-1 rounded-lg shadow-sm inline-flex">
+                    <button id="btn-mvp" onclick="toggleStrategy('mvp')" class="px-6 py-2 rounded-md text-sm font-bold bg-amber-100 text-amber-700 transition-all">
+                        MVP (Старт)
+                    </button>
+                    <button id="btn-target" onclick="toggleStrategy('target')" class="px-6 py-2 rounded-md text-sm font-bold text-gray-600 hover:bg-gray-100 transition-all">
+                        Целевой Формат
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Content Area -->
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Text Details -->
+                <div id="strategy-details" class="bg-white p-8 rounded-xl shadow-md h-full flex flex-col justify-center">
+                    <!-- Content injected via JS -->
+                </div>
+
+                <!-- Comparison Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">Экономика Месяца</h3>
+                    <div class="chart-container">
+                        <canvas id="strategyChart"></canvas>
+                    </div>
+                    <div id="chart-legend" class="mt-4 text-center text-sm font-medium text-gray-600">
+                        <!-- Legend updated via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financials Section -->
+    <section id="financials" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Финансовый Прогноз</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    Инвестиционный горизонт 3 года с четкой точкой безубыточности и высокой рентабельностью капитала.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h4 class="text-gray-500 uppercase text-xs font-bold tracking-wider mb-2">Общие Инвестиции</h4>
+                    <p class="text-3xl font-bold text-gray-900">8.17 млн ₽</p>
+                    <p class="text-sm text-gray-600 mt-2">
+                        CAPEX: 5.27 млн ₽<br>
+                        Резерв: 2.90 млн ₽
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h4 class="text-gray-500 uppercase text-xs font-bold tracking-wider mb-2">Окупаемость</h4>
+                    <p class="text-3xl font-bold text-blue-600">21 месяц</p>
+                    <p class="text-sm text-gray-600 mt-2">
+                        С момента перехода на целевой формат.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h4 class="text-gray-500 uppercase text-xs font-bold tracking-wider mb-2">ROI (3 года)</h4>
+                    <p class="text-3xl font-bold text-green-600">+150%</p>
+                    <p class="text-sm text-gray-600 mt-2">
+                        Высокая доходность за счет масштабирования.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Financial Roadmap -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Финансовая Траектория</h3>
+                <div class="relative border-l-2 border-amber-200 ml-4 space-y-8">
+                    <div class="relative pl-8">
+                        <span class="absolute -left-2.5 top-0 w-5 h-5 bg-amber-500 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-gray-900">Месяцы 0–6: Инвестиции (MVP)</h4>
+                        <p class="text-gray-600 text-sm mt-1">Использование CAPEX и резервного фонда. Операционные убытки покрываются резервом. Валидация гипотез.</p>
+                    </div>
+                    <div class="relative pl-8">
+                        <span class="absolute -left-2.5 top-0 w-5 h-5 bg-amber-400 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-gray-900">Месяцы 6–12: Рост</h4>
+                        <p class="text-gray-600 text-sm mt-1">Сокращение разрыва доходов и расходов. Достижение 90% загрузки MVP.</p>
+                    </div>
+                    <div class="relative pl-8">
+                        <span class="absolute -left-2.5 top-0 w-5 h-5 bg-green-500 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-gray-900">Месяцы 12–18: Раунд B & Масштаб</h4>
+                        <p class="text-gray-600 text-sm mt-1">Привлечение 5-6 млн ₽ на второй сад. Переход к Целевому формату (60 детей). Выход в прибыль.</p>
+                    </div>
+                    <div class="relative pl-8">
+                        <span class="absolute -left-2.5 top-0 w-5 h-5 bg-green-600 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-gray-900">Месяцы 18+: Прибыльность</h4>
+                        <p class="text-gray-600 text-sm mt-1">Стабильная прибыль 338к+ ₽/мес. Формирование портфолио из 2-3 садов.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risks Section -->
+    <section id="risks" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Анализ Рисков и SWOT</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">
+                    Мы честно оцениваем риски и имеем четкий план их минимизации.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- SWOT Matrix -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">SWOT Анализ</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 text-sm mb-2">Сильные стороны</h4>
+                            <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+                                <li>Гарантированный спрос</li>
+                                <li>Уникальная методика</li>
+                                <li>Компактный старт</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-red-700 text-sm mb-2">Слабые стороны</h4>
+                            <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+                                <li>Высокие OPEX</li>
+                                <li>Зависимость от кадров</li>
+                                <li>Убыточность MVP</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-700 text-sm mb-2">Возможности</h4>
+                            <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+                                <li>Сеть в районе</li>
+                                <li>Франшиза</li>
+                                <li>Гос. гранты</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-gray-700 text-sm mb-2">Угрозы</h4>
+                            <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+                                <li>Демография</li>
+                                <li>Доходы населения</li>
+                                <li>Конкуренция</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Mitigation -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Стратегия Минимизации</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-xs mt-0.5">1</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold text-gray-900">Неполная загрузка</h4>
+                                <p class="text-sm text-gray-600">Заложен стратегический резерв капитала (30% от годовых расходов) для покрытия убытков.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-xs mt-0.5">2</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold text-gray-900">Дефицит кадров</h4>
+                                <p class="text-sm text-gray-600">Бюджет на обучение, бонусы для носителей языка.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-xs mt-0.5">3</div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-bold text-gray-900">Маркетинг</h4>
+                                <p class="text-sm text-gray-600">Модель Pre-sale: сбор 50+ заявок до подписания аренды.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Worst Case Scenario -->
+            <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                <div class="flex items-start">
+                    <span class="text-3xl mr-4">⚠️</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Сценарий закрытия после MVP (Worst-Case)</h3>
+                        <p class="text-red-700 text-sm mb-2">
+                            Если проект сворачивается после MVP, инвестор фиксирует убыток.
+                        </p>
+                        <ul class="list-disc list-inside text-sm text-red-600 space-y-1">
+                            <li><strong>Прямые потери:</strong> ~6.5 – 7.5 млн ₽ (Невозвратный CAPEX + Операционный убыток).</li>
+                            <li><strong>Возврат:</strong> Только остаток резервного фонда.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">Готовы инвестировать в будущее?</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+                Smart Start Academy — это не просто детский сад, а масштабируемая бизнес-модель на растущем рынке.
+            </p>
+            <button onclick="alert('Спасибо за интерес! Пожалуйста, свяжитесь с руководством проекта для получения полной финансовой модели.')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
+                Связаться с нами
+            </button>
+            <p class="mt-8 text-xs text-gray-500">© 2024 Smart Start Academy. Investment Proposal.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation Logic ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // --- Data & State ---
+        const strategyData = {
+            mvp: {
+                title: "MVP Формат (27 детей)",
+                desc: "Минимально жизнеспособный продукт для валидации. Экономит 47% инвестиций, но генерирует плановый убыток из-за высоких постоянных расходов.",
+                metrics: [
+                    { label: "Кол-во детей", val: "27-30" },
+                    { label: "Инвестиции", val: "8.17 млн ₽" },
+                    { label: "Прибыль", val: "-510 тыс ₽", isNegative: true },
+                    { label: "Точка 0", val: "Недостижима" }
+                ],
+                chartData: [1230750, 1740557] // Revenue, Expense
+            },
+            target: {
+                title: "Целевой Формат (60 детей)",
+                desc: "Полноценный бизнес. За счет масштаба постоянные расходы размываются, обеспечивая высокую маржинальность.",
+                metrics: [
+                    { label: "Кол-во детей", val: "60" },
+                    { label: "Доп. Инвест", val: "Раунд B" },
+                    { label: "Прибыль", val: "+338 тыс ₽", isNegative: false },
+                    { label: "Точка 0", val: "65-70% загр." }
+                ],
+                chartData: [2461500, 2123062] // Revenue, Expense
+            }
+        };
+
+        // --- Charts Implementation ---
+        
+        // 1. Market Funnel Chart
+        const marketCtx = document.getElementById('marketChart').getContext('2d');
+        new Chart(marketCtx, {
+            type: 'bar',
+            data: {
+                labels: ['TAM (Весь рынок)', 'SAM (Академический)', 'SOM (Целевая доля)'],
+                datasets: [{
+                    label: 'Объем рынка (млн ₽/год)',
+                    data: [2000, 175, 29.5],
+                    backgroundColor: ['#E5E7EB', '#93C5FD', '#D97706'],
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' млн ₽';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                }
+            }
+        });
+
+        // 2. Strategy Comparison Chart
+        let strategyChart;
+        const strategyCtx = document.getElementById('strategyChart').getContext('2d');
+
+        function initStrategyChart() {
+            strategyChart = new Chart(strategyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Доход', 'Расход'],
+                    datasets: [{
+                        data: strategyData.mvp.chartData,
+                        backgroundColor: ['#10B981', '#EF4444'], // Green for Income, Red for Expense
+                        borderRadius: 8,
+                        barPercentage: 0.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumSignificantDigits: 3 }).format(context.raw);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return (value / 1000000).toFixed(1) + 'M';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Interaction Logic ---
+        function toggleStrategy(mode) {
+            const data = strategyData[mode];
+            const btnMvp = document.getElementById('btn-mvp');
+            const btnTarget = document.getElementById('btn-target');
+            const detailsDiv = document.getElementById('strategy-details');
+
+            // Update Buttons
+            if (mode === 'mvp') {
+                btnMvp.className = "px-6 py-2 rounded-md text-sm font-bold bg-amber-100 text-amber-700 transition-all shadow-inner";
+                btnTarget.className = "px-6 py-2 rounded-md text-sm font-bold text-gray-600 hover:bg-gray-100 transition-all";
+            } else {
+                btnTarget.className = "px-6 py-2 rounded-md text-sm font-bold bg-green-100 text-green-700 transition-all shadow-inner";
+                btnMvp.className = "px-6 py-2 rounded-md text-sm font-bold text-gray-600 hover:bg-gray-100 transition-all";
+            }
+
+            // Update Text Content
+            detailsDiv.innerHTML = `
+                <div class="animate-fade-in">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">${data.title}</h3>
+                    <p class="text-gray-600 mb-6">${data.desc}</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        ${data.metrics.map(m => `
+                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-100">
+                                <div class="text-xs text-gray-500 uppercase font-semibold">${m.label}</div>
+                                <div class="text-lg font-bold ${m.isNegative === true ? 'text-red-600' : (m.isNegative === false ? 'text-green-600' : 'text-gray-900')}">${m.val}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Update Chart
+            strategyChart.data.datasets[0].data = data.chartData;
+            strategyChart.update();
+        }
+
+        // Initialize
+        initStrategyChart();
+        toggleStrategy('mvp'); // Set initial state
+
+    </script>
+</body>
+</html>
